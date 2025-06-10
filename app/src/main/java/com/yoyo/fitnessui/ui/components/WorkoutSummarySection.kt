@@ -1,11 +1,13 @@
 package com.yoyo.fitnessui.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
@@ -16,10 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yoyo.fitnessui.R
 import com.yoyo.fitnessui.data.model.WorkoutDay
 import com.yoyo.fitnessui.ui.theme.FitnessUITheme
 import com.yoyo.fitnessui.ui.theme.LightGrayishBlue
@@ -39,16 +43,23 @@ fun WorkoutSummarySection(
     isDayCompleted: Boolean // Added isDayCompleted
 ) {
     // UPCOMING WORKOUT Section header
-    Text(
-        text = "UPCOMING WORKOUT",
-        color = LightGrayishBlue,
-        fontSize = 14.sp,
-        fontWeight = FontWeight.SemiBold
-    )
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        contentAlignment = Alignment.Center){
+        Text(
+            text = "UPCOMING WORKOUT",
+            color = Color.White,
+            fontSize = 26.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+    }
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.Center,
     ) {
         // Display the muscle group of the first exercise for the selected day, or a default
         Text(
@@ -79,10 +90,11 @@ fun WorkoutSummarySection(
     ) {
         WorkoutSummaryItem(
             value = "${currentWorkoutDay?.workout?.size ?: 0}",
-            label = "Exercises"
+            label = "Exercises",
+            icon = R.drawable.ic_exercieses
         )
-        WorkoutSummaryItem(value = "53", label = "Min")
-        WorkoutSummaryItem(value = "265", label = "Cal")
+        WorkoutSummaryItem(value = "53", label = "Min", R.drawable.ic_time)
+        WorkoutSummaryItem(value = "265", label = "Cal", R.drawable.ic_cal)
     }
 }
 
@@ -93,10 +105,11 @@ fun WorkoutSummarySection(
  * @param label The descriptive label below the value.
  */
 @Composable
-fun WorkoutSummaryItem(value: String, label: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = value, color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-        Text(text = label, color = LightGrayishBlue, fontSize = 12.sp)
+fun WorkoutSummaryItem(value: String, label: String, icon: Int) {
+    Row(horizontalArrangement = Arrangement.Center) {
+        Icon(painter = painterResource(id = icon), contentDescription = null, tint = Color.White)
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(text = value +" "+label, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.Bold)
     }
 }
 

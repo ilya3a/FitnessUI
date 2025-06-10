@@ -1,8 +1,8 @@
 package com.yoyo.fitnessui.ui.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -34,7 +34,7 @@ fun StartWorkoutButton(
         Button(
             onClick = onClick,
             modifier = Modifier
-                .fillMaxWidth()
+                .width(300.dp)
                 .height(56.dp),
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryYellow),
             shape = RoundedCornerShape(12.dp) // Rounded shape for the button

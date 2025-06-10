@@ -148,7 +148,7 @@ fun MyWorkoutScreen(viewModel: WorkoutViewModel = viewModel()) {
                 onClick = { Toast.makeText(context, "START WORKOUT clicked!", Toast.LENGTH_SHORT).show() },
                 modifier = Modifier
                     .align(Alignment.BottomCenter) // Align to the bottom center of the parent Box
-                    .padding(bottom = 12.dp) // Add padding from the bottom edge
+                    .padding(bottom = 20.dp) // Add padding from the bottom edge
             )
         }
     }
