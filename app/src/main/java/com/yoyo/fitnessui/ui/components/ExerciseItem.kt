@@ -1,17 +1,23 @@
+// ExerciseItem.kt
 package com.yoyo.fitnessui.ui.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle // New import for completed icon
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,40 +33,51 @@ import com.yoyo.fitnessui.R
 import com.yoyo.fitnessui.data.model.Exercise
 import com.yoyo.fitnessui.ui.theme.DarkBackground
 import com.yoyo.fitnessui.ui.theme.LightGrayishBlue
+import com.yoyo.fitnessui.ui.theme.PrimaryYellow
+import com.yoyo.fitnessui.ui.theme.FitnessUITheme
+import androidx.compose.ui.tooling.preview.Preview
 
 /**
- * Composable function for a single exercise item displayed in the workout list.
- * It shows the exercise thumbnail, name, sets/reps/weight, and muscle group image.
+ * Composable for displaying a single exercise item in the workout list.
  *
- * @param exercise The [Exercise] data object to display.
+ * @param exercise The [Exercise] data to display.
+ * @param onToggleComplete Lambda function invoked when the exercise item is clicked to toggle its completion status.
+ * This lambda now takes no arguments, as the ExerciseItem already knows which exercise it represents.
  */
 @Composable
-fun ExerciseItem(exercise: Exercise) {
+fun ExerciseItem(
+    exercise: Exercise,
+    onToggleComplete: () -> Unit // IMPORTANT: This now takes no arguments.
+) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = DarkBackground), // Dark background for the card
-        shape = RoundedCornerShape(8.dp) // Rounded corners for the card
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onToggleComplete() }, // Call without arguments
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Gray.copy(alpha = 0.2f)
+        ),
+        shape = RoundedCornerShape(8.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Exercise thumbnail image loaded with Coil from assets
+            // Exercise thumbnail
             AsyncImage(
-                model = "file:///android_asset/${exercise.exerciseThumbnail}", // Load from assets
+                model = "file:///android_asset/${exercise.exerciseThumbnail}",
                 contentDescription = exercise.exerciseName,
                 modifier = Modifier
-                    .size(80.dp)
+                    .size(60.dp)
                     .clip(RoundedCornerShape(8.dp)),
                 contentScale = ContentScale.Crop,
-                // Placeholder image in case the asset is not found
-                error = painterResource(id = R.drawable.ic_launcher_background) // Replace with a generic workout image asset
+                error = painterResource(id = R.drawable.ic_launcher_background) // Fallback image
             )
+            Spacer(modifier = Modifier.width(12.dp))
 
-            Spacer(modifier = Modifier.width(16.dp))
-
+            // Exercise name and details
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = exercise.exerciseName,
@@ -69,7 +86,6 @@ fun ExerciseItem(exercise: Exercise) {
                     fontWeight = FontWeight.SemiBold
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                // Format the text for sets, reps, and optional weight
                 val weightText = exercise.weightAmount?.let { " x $it lb" } ?: ""
                 Text(
                     text = "${exercise.amountOfSets} sets x ${exercise.repRange} reps$weightText",
@@ -80,18 +96,49 @@ fun ExerciseItem(exercise: Exercise) {
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            // Muscle group image loaded with Coil from assets
-            AsyncImage(
-                model = "file:///android_asset/${exercise.muscleGroupImage}", // Load from assets
-                contentDescription = exercise.muscleGroup,
-                modifier = Modifier.size(40.dp),
-                contentScale = ContentScale.Fit,
-                // Placeholder image in case the asset is not found
-                error = painterResource(id = R.drawable.ic_launcher_background) // Replace with a generic muscle group image asset
-            )
+            // Muscle group image or completion indicator
+            if (exercise.isCompleted) {
+                Icon(
+                    imageVector = Icons.Default.CheckCircle,
+                    contentDescription = "Completed",
+                    tint = PrimaryYellow, // Bright color for completion
+                    modifier = Modifier.size(40.dp)
+                )
+            } else {
+                AsyncImage(
+                    model = "file:///android_asset/${exercise.muscleGroupImage}",
+                    contentDescription = exercise.muscleGroup,
+                    modifier = Modifier.size(40.dp),
+                    contentScale = ContentScale.Fit,
+                    error = painterResource(id = R.drawable.ic_launcher_background) // Fallback image
+                )
+            }
         }
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun ExerciseItemPreview() {
+    FitnessUITheme {
+        Column(modifier = Modifier.background(DarkBackground).padding(16.dp)) {
+            val mockExercise = Exercise(
+                exerciseId = 1,
+                exerciseName = "Sample Exercise",
+                exerciseThumbnail = "exc_t_159_ronals.jpg",
+                muscleGroup = "Legs",
+                muscleGroupImage = "Muscle Groups 1.png",
+                amountOfSets = 3,
+                repRange = "8-10",
+                weightAmount = "100"
+            )
 
+            // Preview for an uncompleted exercise
+            ExerciseItem(exercise = mockExercise, onToggleComplete = {})
+            Spacer(modifier = Modifier.height(8.dp))
 
+            // Preview for a completed exercise
+            ExerciseItem(exercise = mockExercise.copy(isCompleted = true), onToggleComplete = {})
+        }
+    }
+}

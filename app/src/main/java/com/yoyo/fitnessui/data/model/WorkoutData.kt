@@ -16,7 +16,9 @@ data class WorkoutData(
  */
 data class WorkoutDay(
     val day: Int,
-    val workout: List<Exercise>
+    val workout: List<Exercise>,
+    var isCompleted: Boolean = false
+
 )
 
 /**
@@ -32,5 +34,6 @@ data class Exercise(
     @SerializedName("muscle_group_image") val muscleGroupImage: String,
     @SerializedName("amount_of_sets") val amountOfSets: Int,
     @SerializedName("rep_range") val repRange: String,
-    @SerializedName("weight_amount") val weightAmount: String? // Can be null in JSON
+    @SerializedName("weight_amount") val weightAmount: String?,
+    var isCompleted: Boolean = false // New: Default to false
 )

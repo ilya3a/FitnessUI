@@ -3,6 +3,8 @@ package com.yoyo.fitnessui.ui.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyRow // Import LazyRow
+import androidx.compose.foundation.lazy.items // Import items for LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.AssistChip
@@ -16,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.yoyo.fitnessui.ui.theme.FitnessUITheme
 
 
@@ -33,20 +36,27 @@ fun WorkoutTopSection(
     onTimeClick: () -> Unit,
     onScheduleClick: () -> Unit
 ) {
-    Row(
+    // Use LazyRow for horizontally scrollable filter chips
+    LazyRow(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.spacedBy(8.dp), // Spacing between chips
         verticalAlignment = Alignment.CenterVertically
     ) {
-        FilterChip(text = "Muscles (16)", icon = Icons.Default.ArrowDropDown, onClick = onMusclesClick)
-        FilterChip(text = "45-60 Min", icon = Icons.Default.ArrowDropDown, onClick = onTimeClick)
-        FilterChip(text = "Schedule", icon = Icons.Default.ArrowDropDown, onClick = onScheduleClick)
+        item { // Wrap each chip in an item for LazyRow
+            FilterChip(text = "Muscles (16)", icon = Icons.Default.ArrowDropDown, onClick = onMusclesClick)
+        }
+        item {
+            FilterChip(text = "45-60 Min", icon = Icons.Default.ArrowDropDown, onClick = onTimeClick)
+        }
+        item {
+            FilterChip(text = "Schedule", icon = Icons.Default.ArrowDropDown, onClick = onScheduleClick)
+        }
+        // If more chips are added, they will automatically scroll
     }
 }
 
 /**
  * Composable for a filter chip (e.g., "Muscles (16)").
- * This was moved from MyWorkoutScreen and made reusable.
  *
  * @param text The text to display on the chip.
  * @param icon The leading icon for the chip.
@@ -56,7 +66,7 @@ fun WorkoutTopSection(
 @Composable
 fun FilterChip(text: String, icon: ImageVector, onClick: () -> Unit) {
     AssistChip(
-        onClick = onClick, // Use the provided onClick lambda
+        onClick = onClick,
         label = {
             Text(text = text, color = Color.White)
         },
@@ -68,9 +78,9 @@ fun FilterChip(text: String, icon: ImageVector, onClick: () -> Unit) {
             )
         },
         colors = AssistChipDefaults.assistChipColors(
-            containerColor = Color.Gray.copy(alpha = 0.2f) // Semi-transparent gray background
+            containerColor = Color.Gray.copy(alpha = 0.2f)
         ),
-        border = null // No border
+        border = null
     )
 }
 

@@ -3,6 +3,7 @@ package com.yoyo.fitnessui.ui.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Share // Import Share icon
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,13 +23,18 @@ import com.yoyo.fitnessui.ui.theme.DarkBackground
 
 /**
  * Composable for the workout summary section.
- * Includes "UPCOMING WORKOUT" header, muscle group, edit icon, and summary items.
+ * Includes "UPCOMING WORKOUT" header, muscle group, edit/share icon, and summary items.
  *
  * @param currentWorkoutDay The [WorkoutDay] object containing current workout details, can be null.
- * @param onEditClick Lambda invoked when the edit icon is clicked.
+ * @param onEditClick Lambda invoked when the edit/share icon is clicked.
+ * @param isDayCompleted Boolean indicating if the currently selected day is completed.
  */
 @Composable
-fun WorkoutSummarySection(currentWorkoutDay: WorkoutDay?, onEditClick: () -> Unit) {
+fun WorkoutSummarySection(
+    currentWorkoutDay: WorkoutDay?,
+    onEditClick: () -> Unit,
+    isDayCompleted: Boolean // Added isDayCompleted
+) {
     // UPCOMING WORKOUT Section header
     Text(
         text = "UPCOMING WORKOUT",
@@ -47,11 +54,13 @@ fun WorkoutSummarySection(currentWorkoutDay: WorkoutDay?, onEditClick: () -> Uni
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold
         )
-        // Edit workout icon button
-        IconButton(onClick = onEditClick) { // Use the provided onClick lambda
+        // Edit/Share workout icon button based on day completion
+        IconButton(onClick = onEditClick) {
+            val icon = if (isDayCompleted) Icons.Default.Share else Icons.Default.Edit // Choose icon
+            val contentDescription = if (isDayCompleted) "Share Workout" else "Edit Workout"
             Icon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = "Edit Workout",
+                imageVector = icon,
+                contentDescription = contentDescription,
                 tint = LightGrayishBlue
             )
         }
@@ -66,17 +75,16 @@ fun WorkoutSummarySection(currentWorkoutDay: WorkoutDay?, onEditClick: () -> Uni
         verticalAlignment = Alignment.CenterVertically
     ) {
         WorkoutSummaryItem(
-            value = "${currentWorkoutDay?.workout?.size ?: 0}", // Dynamically display number of exercises
+            value = "${currentWorkoutDay?.workout?.size ?: 0}",
             label = "Exercises"
         )
-        WorkoutSummaryItem(value = "53", label = "Min") // Placeholder, as time is not in JSON
-        WorkoutSummaryItem(value = "265", label = "Cal") // Placeholder, as calories are not in JSON
+        WorkoutSummaryItem(value = "53", label = "Min")
+        WorkoutSummaryItem(value = "265", label = "Cal")
     }
 }
 
 /**
  * Composable for displaying a single summary item (e.g., "6 Exercises").
- * This was moved from MyWorkoutScreen and made reusable.
  *
  * @param value The numerical value or main text.
  * @param label The descriptive label below the value.
@@ -93,14 +101,17 @@ fun WorkoutSummaryItem(value: String, label: String) {
 @Composable
 fun WorkoutSummarySectionPreview() {
     FitnessUITheme {
-        // Provide mock data for preview
         val mockWorkoutDay = com.yoyo.fitnessui.data.model.WorkoutDay(
             day = 1,
             workout = listOf(
                 com.yoyo.fitnessui.data.model.Exercise(1, "Mock Exercise 1", "exc_t_159_ronals.jpg", "Chest", "Muscle Groups 1.png", 3, "8-10", "100")
             )
         )
-        WorkoutSummarySection(currentWorkoutDay = mockWorkoutDay, onEditClick = {})
+        Column {
+            WorkoutSummarySection(currentWorkoutDay = mockWorkoutDay, onEditClick = {}, isDayCompleted = false)
+            Spacer(modifier = Modifier.height(16.dp))
+            WorkoutSummarySection(currentWorkoutDay = mockWorkoutDay, onEditClick = {}, isDayCompleted = true) // Example: Day completed
+        }
     }
 }
 
@@ -108,6 +119,6 @@ fun WorkoutSummarySectionPreview() {
 @Composable
 fun WorkoutSummarySectionEmptyPreview() {
     FitnessUITheme {
-        WorkoutSummarySection(currentWorkoutDay = null, onEditClick = {})
+        WorkoutSummarySection(currentWorkoutDay = null, onEditClick = {}, isDayCompleted = false)
     }
 }

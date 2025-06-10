@@ -67,4 +67,6 @@ dependencies {
 
     implementation(libs.gson)
 
+    implementation(libs.kotlinx.coroutines.core)
+
 }

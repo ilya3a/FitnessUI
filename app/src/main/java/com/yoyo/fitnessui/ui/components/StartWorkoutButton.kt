@@ -1,5 +1,6 @@
 package com.yoyo.fitnessui.ui.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,22 +24,30 @@ import com.yoyo.fitnessui.ui.theme.PrimaryYellow
  * @param onClick Lambda function to be invoked when the button is clicked.
  */
 @Composable
-fun StartWorkoutButton(onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = PrimaryYellow),
-        shape = RoundedCornerShape(12.dp) // Rounded shape for the button
+fun StartWorkoutButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
     ) {
-        Text(
-            text = "START WORKOUT",
-            color = Color.Black,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold
-        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryYellow),
+            shape = RoundedCornerShape(12.dp) // Rounded shape for the button
+        ) {
+            Text(
+                text = "START WORKOUT",
+                color = Color.Black,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
+
 }
 
 @Preview(showBackground = true)
