@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.yoyo.fitnessui.data.model.WorkoutData
 import com.yoyo.fitnessui.data.model.WorkoutDay
-import com.yoyo.fitnessui.data.model.Exercise
 import com.yoyo.fitnessui.data.repository.WorkoutRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

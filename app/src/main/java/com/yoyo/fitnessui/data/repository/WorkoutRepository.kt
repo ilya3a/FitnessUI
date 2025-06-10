@@ -3,8 +3,8 @@ package com.yoyo.fitnessui.data.repository
 import android.content.Context
 import com.google.gson.Gson
 import com.yoyo.fitnessui.data.model.WorkoutData
-import java.io.InputStreamReader
 import java.io.IOException
+import java.io.InputStreamReader
 
 /**
  * Singleton repository object responsible for loading workout data from the assets folder.
