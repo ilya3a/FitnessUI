@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.yoyo.fitnessui"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.yoyo.fitnessui"

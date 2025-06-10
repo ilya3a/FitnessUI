@@ -6,7 +6,7 @@
           {
             "exercise_id": 1,
             "exercise_name": "Single Leg Extension",
-            "exercise_thumbnail": "exc_t_159_ronals.png",
+            "exercise_thumbnail": "exc_t_159_ronals.jpg",
             "muscle_group": "Legs",
             "muscle_group_image": "Muscle Groups 1.png",
             "amount_of_sets": 3,
@@ -16,7 +16,7 @@
           {
             "exercise_id": 2,
             "exercise_name": "Bodyweight Quadruped Glute Kick Back",
-            "exercise_thumbnail": "exc_t_153_ronals.png",
+            "exercise_thumbnail": "exc_t_153_ronals.jpg",
             "muscle_group": "Glutes",
             "muscle_group_image": "Muscle Groups 3.png",
             "amount_of_sets": 5,
@@ -31,7 +31,7 @@
           {
             "exercise_id": 3,
             "exercise_name": "Wide Grip Pull Up",
-            "exercise_thumbnail": "exc_t_167_ronals.png",
+            "exercise_thumbnail": "exc_t_167_ronals.jpg",
             "muscle_group": "Lats",
             "muscle_group_image": "Muscle Groups 2.png",
             "amount_of_sets": 4,
@@ -41,7 +41,7 @@
           {
             "exercise_id": 4,
             "exercise_name": "Lying Leg Curl Machine",
-            "exercise_thumbnail": "exc_t_157_ronals.png",
+            "exercise_thumbnail": "exc_t_157_ronals.jpg",
             "muscle_group": "Legs",
             "muscle_group_image": "Muscle Groups 1.png",
             "amount_of_sets": 3,
@@ -51,7 +51,7 @@
           {
             "exercise_id": 5,
             "exercise_name": "Neutral Grip Pull Up",
-            "exercise_thumbnail": "exc_t_161_ronals.png",
+            "exercise_thumbnail": "exc_t_161_ronals.jpg",
             "muscle_group": "Lats",
             "muscle_group_image": "Muscle Groups 2.png",
             "amount_of_sets": 4,
@@ -66,7 +66,7 @@
           {
             "exercise_id": 5,
             "exercise_name": "Neutral Grip Pull Up",
-            "exercise_thumbnail": "exc_t_161_ronals.png",
+            "exercise_thumbnail": "exc_t_161_ronals.jpg",
             "muscle_group": "Lats",
             "muscle_group_image": "Muscle Groups 2.png",
             "amount_of_sets": 3,
@@ -76,7 +76,7 @@
           {
             "exercise_id": 2,
             "exercise_name": "Bodyweight Quadruped Glute Kick Back",
-            "exercise_thumbnail": "exc_t_153_ronals.png",
+            "exercise_thumbnail": "exc_t_153_ronals.jpg",
             "muscle_group": "Glutes",
             "muscle_group_image": "Muscle Groups 3.png",
             "amount_of_sets": 2,
@@ -86,7 +86,7 @@
           {
             "exercise_id": 1,
             "exercise_name": "Single Leg Extension",
-            "exercise_thumbnail": "exc_t_159_ronals.png",
+            "exercise_thumbnail": "exc_t_159_ronals.jpg",
             "muscle_group": "Legs",
             "muscle_group_image": "Muscle Groups 1.png",
             "amount_of_sets": 4,
@@ -96,7 +96,7 @@
           {
             "exercise_id": 3,
             "exercise_name": "Wide Grip Pull Up",
-            "exercise_thumbnail": "exc_t_167_ronals.png",
+            "exercise_thumbnail": "exc_t_167_ronals.jpg",
             "muscle_group": "Lats",
             "muscle_group_image": "Muscle Groups 2.png",
             "amount_of_sets": 3,
@@ -111,7 +111,7 @@
           {
             "exercise_id": 6,
             "exercise_name": "Leg Extension",
-            "exercise_thumbnail": "exc_t_156_ronals.png",
+            "exercise_thumbnail": "exc_t_156_ronals.jpg",
             "muscle_group": "Legs",
             "muscle_group_image": "Muscle Groups 1.png",
             "amount_of_sets": 2,
@@ -121,7 +121,7 @@
           {
             "exercise_id": 4,
             "exercise_name": "Lying Leg Curl Machine",
-            "exercise_thumbnail": "exc_t_157_ronals.png",
+            "exercise_thumbnail": "exc_t_157_ronals.jpg",
             "muscle_group": "Legs",
             "muscle_group_image": "Muscle Groups 1.png",
             "amount_of_sets": 5,
