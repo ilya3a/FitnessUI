@@ -24,9 +24,10 @@ import com.yoyo.fitnessui.ui.theme.DarkBackground
  * Includes "UPCOMING WORKOUT" header, muscle group, edit icon, and summary items.
  *
  * @param currentWorkoutDay The [WorkoutDay] object containing current workout details, can be null.
+ * @param onEditClick Lambda invoked when the edit icon is clicked.
  */
 @Composable
-fun WorkoutSummarySection(currentWorkoutDay: WorkoutDay?) {
+fun WorkoutSummarySection(currentWorkoutDay: WorkoutDay?, onEditClick: () -> Unit) {
     // UPCOMING WORKOUT Section header
     Text(
         text = "UPCOMING WORKOUT",
@@ -47,7 +48,7 @@ fun WorkoutSummarySection(currentWorkoutDay: WorkoutDay?) {
             fontWeight = FontWeight.Bold
         )
         // Edit workout icon button
-        IconButton(onClick = { /* TODO: handle edit workout action */ }) {
+        IconButton(onClick = onEditClick) { // Use the provided onClick lambda
             Icon(
                 imageVector = Icons.Default.Edit,
                 contentDescription = "Edit Workout",
@@ -93,13 +94,13 @@ fun WorkoutSummaryItem(value: String, label: String) {
 fun WorkoutSummarySectionPreview() {
     FitnessUITheme {
         // Provide mock data for preview
-        val mockWorkoutDay = WorkoutDay(
+        val mockWorkoutDay = com.yoyo.fitnessui.data.model.WorkoutDay(
             day = 1,
             workout = listOf(
                 com.yoyo.fitnessui.data.model.Exercise(1, "Mock Exercise 1", "exc_t_159_ronals.jpg", "Chest", "Muscle Groups 1.png", 3, "8-10", "100")
             )
         )
-        WorkoutSummarySection(currentWorkoutDay = mockWorkoutDay)
+        WorkoutSummarySection(currentWorkoutDay = mockWorkoutDay, onEditClick = {})
     }
 }
 
@@ -107,6 +108,6 @@ fun WorkoutSummarySectionPreview() {
 @Composable
 fun WorkoutSummarySectionEmptyPreview() {
     FitnessUITheme {
-        WorkoutSummarySection(currentWorkoutDay = null)
+        WorkoutSummarySection(currentWorkoutDay = null, onEditClick = {})
     }
 }

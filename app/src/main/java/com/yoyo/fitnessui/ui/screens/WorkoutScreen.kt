@@ -22,6 +22,9 @@ import com.yoyo.fitnessui.ui.components.StartWorkoutButton
 import com.yoyo.fitnessui.ui.theme.FitnessUITheme
 import com.yoyo.fitnessui.ui.theme.DarkBackground
 import com.yoyo.fitnessui.ui.theme.LightGrayishBlue
+import androidx.compose.ui.platform.LocalContext // Import LocalContext
+import android.widget.Toast // Import Toast
+import androidx.compose.ui.unit.sp
 
 
 /**
@@ -36,6 +39,7 @@ fun MyWorkoutScreen(viewModel: WorkoutViewModel) {
     // Collect state from ViewModel to trigger UI recomposition on data changes
     val currentWorkoutDay by viewModel.currentWorkoutDay.collectAsState()
     val selectedDay by viewModel.selectedDay.collectAsState()
+    val context = LocalContext.current // Get context for Toast messages
 
     Scaffold(
         topBar = {
@@ -54,7 +58,13 @@ fun MyWorkoutScreen(viewModel: WorkoutViewModel) {
         },
         containerColor = DarkBackground,
         bottomBar = {
-            BottomNavigationBar()
+            // Pass context and define basic click handlers for navigation items
+            BottomNavigationBar(
+                onMyWorkoutClick = { Toast.makeText(context, "My Workout clicked", Toast.LENGTH_SHORT).show() },
+                onProgressClick = { Toast.makeText(context, "Progress clicked", Toast.LENGTH_SHORT).show() },
+                onExerciseClick = { Toast.makeText(context, "Exercise clicked", Toast.LENGTH_SHORT).show() },
+                onSettingsClick = { Toast.makeText(context, "Settings clicked", Toast.LENGTH_SHORT).show() }
+            )
         }
     ) { paddingValues ->
         Column(
@@ -65,8 +75,12 @@ fun MyWorkoutScreen(viewModel: WorkoutViewModel) {
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Top section with filter chips
-            WorkoutTopSection() // Extracted component
+            // Top section with filter chips, pass click handlers
+            WorkoutTopSection(
+                onMusclesClick = { Toast.makeText(context, "Muscles filter clicked", Toast.LENGTH_SHORT).show() },
+                onTimeClick = { Toast.makeText(context, "Time filter clicked", Toast.LENGTH_SHORT).show() },
+                onScheduleClick = { Toast.makeText(context, "Schedule filter clicked", Toast.LENGTH_SHORT).show() }
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -74,9 +88,21 @@ fun MyWorkoutScreen(viewModel: WorkoutViewModel) {
             DaySelector(selectedDay = selectedDay, onDaySelected = { viewModel.selectDay(it) })
 
             Spacer(modifier = Modifier.height(16.dp))
+            // Week X/Y - Foundation text
+            Text(
+                text = "Week 1/5 - Foundation",
+                color = LightGrayishBlue,
+                fontSize = 14.sp,
+                modifier = Modifier.fillMaxWidth()
+            )
 
-            // Workout summary section (Upcoming workout header, muscle group, edit icon, summary items)
-            WorkoutSummarySection(currentWorkoutDay = currentWorkoutDay) // Extracted component
+            Spacer(modifier = Modifier.height(8.dp)) // Small space between week text and day selector
+
+            // Workout summary section
+            WorkoutSummarySection(
+                currentWorkoutDay = currentWorkoutDay,
+                onEditClick = { Toast.makeText(context, "Edit Workout clicked", Toast.LENGTH_SHORT).show() }
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -104,7 +130,7 @@ fun MyWorkoutScreen(viewModel: WorkoutViewModel) {
             Spacer(modifier = Modifier.height(16.dp))
 
             // Start Workout Button
-            StartWorkoutButton(onClick = { /* TODO: Handle start workout action */ }) // Extracted component
+            StartWorkoutButton(onClick = { Toast.makeText(context, "START WORKOUT clicked!", Toast.LENGTH_SHORT).show() })
 
             Spacer(modifier = Modifier.height(8.dp))
         }

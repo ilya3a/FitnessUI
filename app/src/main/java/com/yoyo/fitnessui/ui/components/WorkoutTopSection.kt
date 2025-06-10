@@ -21,18 +21,26 @@ import com.yoyo.fitnessui.ui.theme.FitnessUITheme
 
 /**
  * Composable for the top section of the workout screen, containing filter chips.
+ *
+ * @param onMusclesClick Lambda invoked when the "Muscles" filter is clicked.
+ * @param onTimeClick Lambda invoked when the "45-60 Min" filter is clicked.
+ * @param onScheduleClick Lambda invoked when the "Schedule" filter is clicked.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WorkoutTopSection() {
+fun WorkoutTopSection(
+    onMusclesClick: () -> Unit,
+    onTimeClick: () -> Unit,
+    onScheduleClick: () -> Unit
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        FilterChip(text = "Muscles (16)", icon = Icons.Default.ArrowDropDown)
-        FilterChip(text = "45-60 Min", icon = Icons.Default.ArrowDropDown)
-        FilterChip(text = "Schedule", icon = Icons.Default.ArrowDropDown)
+        FilterChip(text = "Muscles (16)", icon = Icons.Default.ArrowDropDown, onClick = onMusclesClick)
+        FilterChip(text = "45-60 Min", icon = Icons.Default.ArrowDropDown, onClick = onTimeClick)
+        FilterChip(text = "Schedule", icon = Icons.Default.ArrowDropDown, onClick = onScheduleClick)
     }
 }
 
@@ -42,12 +50,13 @@ fun WorkoutTopSection() {
  *
  * @param text The text to display on the chip.
  * @param icon The leading icon for the chip.
+ * @param onClick Lambda invoked when the chip is clicked.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FilterChip(text: String, icon: ImageVector) {
+fun FilterChip(text: String, icon: ImageVector, onClick: () -> Unit) {
     AssistChip(
-        onClick = { /* TODO: Handle filter click */ },
+        onClick = onClick, // Use the provided onClick lambda
         label = {
             Text(text = text, color = Color.White)
         },
@@ -69,6 +78,6 @@ fun FilterChip(text: String, icon: ImageVector) {
 @Composable
 fun WorkoutTopSectionPreview() {
     FitnessUITheme {
-        WorkoutTopSection()
+        WorkoutTopSection(onMusclesClick = {}, onTimeClick = {}, onScheduleClick = {})
     }
 }
