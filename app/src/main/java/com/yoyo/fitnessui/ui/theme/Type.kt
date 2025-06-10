@@ -6,7 +6,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
+/**
+ * Defines the typography for the application, based on Material Design 3.
+ * You can define various text styles (e.g., displayLarge, headlineMedium, bodyLarge, labelSmall)
+ * to maintain consistent text appearance throughout the app.
+ */
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -15,7 +19,7 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     )
-    /* Other default text styles to override
+    /* Other default text styles to override if needed:
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
